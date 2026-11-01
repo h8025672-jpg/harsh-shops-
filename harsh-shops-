@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Local Shop | Fresh Finds, Best Prices</title>
+
+<style>
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  background: #f8faf8;
+
+  color: #17251b;
+
+}
+
+header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 16px 6%;
+
+  background: white;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+
+  box-shadow: 0 2px 12px #0000000c;
+
+}
+
+.logo { font-size: 22px; font-weight: 800; }
+
+header a { color: #17251b; text-decoration: none; }
+
+.cart-count {
+
+  background: #246b45;
+
+  color: white;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+}
+
+.hero {
+
+  min-height: 440px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 60px 7%;
+
+  color: white;
+
+  background:
+
+    linear-gradient(90deg, #102b1de8, #102b1d30),
+
+    url("https://ibb.co/B5rMhHK4") center/cover;
+
+}
+
+.hero-content { max-width: 560px; }
+
+.hero h1 { font-size: clamp(38px, 7vw, 68px); margin: 0 0 15px; }
+
+.hero p { font-size: 18px; line-height: 1.6; }
+
+.btn {
+
+  display: inline-block;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  padding: 13px 20px;
+
+  background: #246b45;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+}
+
+.hero .btn { background: white; color: #246b45; }
+
+section { padding: 45px 6%; }
+
+.section-heading { margin-bottom: 25px; }
+
+.section-heading h2 { font-size: 30px; margin: 0 0 8px; }
+
+.section-heading p { color: #647067; margin: 0; }
+
+.products {
+
+  display: flex;
+
+  gap: 18px;
+
+  overflow-x: auto;
+
+  padding: 4px 0 18px;
+
+  scroll-snap-type: x mandatory;
+
+}
+
+.product {
+
+  flex: 0 0 220px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow: 0 4px 18px #0000000c;
+
+  scroll-snap-align: start;
+
+}
+
+.product img {
+
+  width: 100%;
+
+  height: 180px;
+
+  object-fit: cover;
+
+  background: #e7eee8;
+
+}
+
+.product-info { padding: 15px; }
+
+.product h3 { margin: 0 0 8px; font-size: 18px; }
+
+.price { font-weight: 800; color: #246b45; margin-bottom: 14px; }
+
+.product .btn { width: 100%; }
+
+.cart {
+
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 22px;
+
+  max-width: 700px;
+
+  margin: auto;
+
+  box-shadow: 0 4px 20px #0000000c;
+
+}
+
+.cart-item {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #eee;
+
+}
+
+.remove {
+
+  color: #b42318;
+
+  border: 0;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+.total { font-size: 20px; font-weight: 800; margin: 20px 0; }
+
+form { display: grid; gap: 14px; }
+
+label { font-weight: 600; font-size: 14px; }
+
+input, textarea, select {
+
+  width: 100%;
+
+  margin-top: 6px;
+
+  padding: 13px;
+
+  border: 1px solid #d4ddd6;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+}
+
+textarea { resize: vertical; min-height: 85px; }
+
+footer {
+
+  text-align: center;
+
+  padding: 25px;
+
+  background: #17251b;
+
+  color: white;
+
+}
+
+.whatsapp {
+
+  position: fixed;
+
+  right: 18px;
+
+  bottom: 20px;
+
+  z-index: 20;
+
+  background: #25d366;
+
+  color: white;
+
+  border-radius: 50px;
+
+  padding: 15px 19px;
+
+  font-weight: 800;
+
+  text-decoration: none;
+
+  box-shadow: 0 4px 15px #0003;
+
+}
+
+.note { font-size: 13px; color: #647067; line-height: 1.5; }
+
+@media (max-width: 600px) {
+
+  .hero { min-height: 390px; padding: 40px 6%; }
+
+  section { padding: 35px 5%; }
+
+  .product { flex-basis: 185px; }
+
+  .product img { height: 155px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <a class="logo" href="#">The Local Shop</a>
+
+  <a class="cart-count" href="#cart">Cart (<span id="count">0</span>)</a>
+
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <h1>Fresh Finds,<br>Best Prices.</h1>
+
+      <p>Your neighborhood shop for everyday essentials.
+
+         Discover something you love today.</p>
+
+      <a class="btn" href="#products">Shop Now</a>
+
+    </div>
+
+  </section>
+
+  <section id="products">
+
+    <div class="section-heading">
+
+      <h2>Shop Our Products</h2>
+
+      <p>Good products. Great prices. Right around the corner.</p>
+
+    </div>
+
+    <div class="products" id="product-list"></div>
+
+  </section>
+
+  <section id="cart">
+
+    <div class="section-heading">
+
+      <h2>Your Shopping Cart</h2>
+
+      <p>Review your items and place your order.</p>
+
+    </div>
+
+    <div class="cart">
+
+      <div id="cart-items">Your cart is empty.</div>
+
+      <div class="total">Total: ₹<span id="total">0</span></div>
+
+      <form id="order-form">
+
+        <label>
+
+          Customer name
+
+          <input name="customer_name" required placeholder="Your full name">
+
+        </label>
+
+        <label>
+
+          Phone number
+
+          <input name="phone" type="tel" required
+
+                 pattern="[0-9+() -]{10,20}"
+
+                 placeholder="Your contact number">
+
+        </label>
+
+        <label>
+
+          Delivery address
+
+          <textarea name="address" required
+
+                    placeholder="Enter your address"></textarea>
+
+        </label>
+
+        <label>
+
+          Order notes (optional)
+
+          <textarea name="notes" placeholder="Any special instructions?"></textarea>
+
+        </label>
+
+        <button class="btn" type="submit">Send Order by Email</button>
+
+        <p class="note">
+
+          Your order will be sent to the shop owner.
+
+          Please wait for confirmation of your order.
+
+        </p>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <p><strong>The Local Shop</strong></p>
+
+  <p>Fresh Finds, Best Prices</p>
+
+  <p>thelocalshop@gmail.com</p>
+
+</footer>
+
+<a class="whatsapp"
+
+   href="https://wa.me/919286379950"
+
+   target="_blank" rel="noopener">
+
+  WhatsApp
+
+</a>
+
+<!-- EmailJS browser SDK -->
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+
+const products = [
+
+  {
+
+    id: 1,
+
+    name: "Everyday Essentials",
+
+    price: 99,
+
+    image: "https://ibb.co/jPJPVC6Q"
+
+  },
+
+  {
+
+    id: 2,
+
+    name: "Daily Grocery Pack",
+
+    price: 149,
+
+    image: "https://ibb.co/B5rMhHK4"
+
+  },
+
+  {
+
+    id: 3,
+
+    name: "Fresh Finds Bundle",
+
+    price: 199,
+
+    image: "https://ibb.co/jPJPVC6Q"
+
+  },
+
+  {
+
+    id: 4,
+
+    name: "Value Shopping Pack",
+
+    price: 249,
+
+    image: "https://ibb.co/B5rMhHK4"
+
+  }
+
+];
+
+const cart = {};
+
+const productList = document.getElementById("product-list");
+
+const cartItems = document.getElementById("cart-items");
+
+const totalElement = document.getElementById("total");
+
+const countElement = document.getElementById("count");
+
+function renderProducts() {
+
+  productList.innerHTML = products.map(product => `
+
+    <article class="product">
+
+      <img src="${product.image}" alt="${product.name}">
+
+      <div class="product-info">
+
+        <h3>${product.name}</h3>
+
+        <div class="price">₹${product.price}</div>
+
+        <button class="btn" onclick="addToCart(${product.id})">
+
+          Add to Cart
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `).join("");
+
+}
+
+function addToCart(id) {
+
+  cart[id] = (cart[id] || 0) + 1;
+
+  renderCart();
+
+}
+
+function removeFromCart(id) {
+
+  if (cart[id] > 1) cart[id]--;
+
+  else delete cart[id];
+
+  renderCart();
+
+}
+
+function renderCart() {
+
+  const items = products.filter(p => cart[p.id]);
+
+  cartItems.innerHTML = items.length
+
+    ? items.map(p => `
+
+      <div class="cart-item">
+
+        <span>${p.name} × ${cart[p.id]}</span>
+
+        <span>
+
+          ₹${p.price * cart[p.id]}
+
+          <button class="remove"
+
+                  onclick="removeFromCart(${p.id})">−</button>
+
+        </span>
+
+      </div>
+
+    `).join("")
+
+    : "Your cart is empty.";
+
+  const count = Object.values(cart).reduce((a, b) => a + b, 0);
+
+  const total = products.reduce((sum, p) =>
+
+    sum + p.price * (cart[p.id] || 0), 0);
+
+  countElement.textContent = count;
+
+  totalElement.textContent = total;
+
+}
+
+document.getElementById("order-form").addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+  const items = products.filter(p => cart[p.id]);
+
+  if (!items.length) {
+
+    alert("Please add products to your cart first.");
+
+    return;
+
+  }
+
+  const form = event.target;
+
+  const data = new FormData(form);
+
+  const orderDetails = items.map(p =>
+
+    `${p.name} x ${cart[p.id]} = ₹${p.price * cart[p.id]}`
+
+  ).join("\n");
+
+  const templateParams = {
+
+    customer_name: data.get("customer_name"),
+
+    phone: data.get("phone"),
+
+    address: data.get("address"),
+
+    notes: data.get("notes"),
+
+    order_items: orderDetails,
+
+    order_total: totalElement.textContent,
+
+    to_email: "thelocalshop@gmail.com"
+
+  };
+
+  // Configure EmailJS with your own credentials.
+
+  // Replace these three values before using email ordering.
+
+  const SERVICE_ID = "YOUR_SERVICE_ID";
+
+  const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+  const PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
+  if (SERVICE_ID.startsWith("YOUR_")) {
+
+    alert("Please configure EmailJS in the website code first.");
+
+    return;
+
+  }
+
+  const button = form.querySelector("button");
+
+  button.disabled = true;
+
+  button.textContent = "Sending order...";
+
+  try {
+
+    emailjs.init({ publicKey: PUBLIC_KEY });
+
+    await emailjs.send(
+
+      SERVICE_ID,
+
+      TEMPLATE_ID,
+
+      templateParams
+
+    );
+
+    alert("Your order has been sent! The shop will contact you.");
+
+    Object.keys(cart).forEach(id => delete cart[id]);
+
+    form.reset();
+
+    renderCart();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Order could not be sent. Please try again or contact the shop.");
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent = "Send Order by Email";
+
+  }
+
+});
+
+renderProducts();
+
+renderCart();
+
+</script>
+
+</body>
+
+</html>
